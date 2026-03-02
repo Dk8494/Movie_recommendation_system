@@ -6,13 +6,23 @@ A content-based movie recommendation engine built with **Python**, **Streamlit**
 
 ## 🚀 Overview
 
-The system utilizes a dataset of 5,000+ movies to find similarities between titles. By analyzing metadata such as genres, keywords, cast, and crew, the engine calculates a **Cosine Similarity** score to provide accurate recommendations.
+The system utilizes the TMDB 5000 dataset to find similarities between titles. By analyzing metadata such as genres, keywords, and plot overviews, the engine calculates a **Cosine Similarity** score to provide accurate recommendations.
 
 ### Key Features
 * **Search Functionality:** Dropdown menu with auto-complete for thousands of movies.
 * **Dynamic Poster Fetching:** Real-time API calls to The Movie Database (TMDB).
 * **Optimized UI:** Grid-based layout with built-in caching for faster loading.
 * **Error Handling:** Fallback placeholders for movies missing poster art.
+
+---
+
+## 📊 Dataset Information
+
+This project uses the **TMDB 5000 Movie Dataset** sourced from Kaggle.
+* **Dataset Link:** [TMDB 5000 Movie Dataset](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata)
+* **Description:** The dataset contains information on 4,803 movies, including budget, genres, keywords, cast, and crew.
+* **Files Used:** * `tmdb_5000_movies.csv`: Primary movie metadata.
+  * `tmdb_5000_credits.csv`: Cast and crew information.
 
 ---
 
@@ -28,8 +38,8 @@ The system utilizes a dataset of 5,000+ movies to find similarities between titl
 
 ## ⚙️ How It Works
 
-1.  **Vectorization:** Text data (tags) is converted into numerical vectors using `CountVectorizer`.
-2.  **Similarity Calculation:** We calculate the "distance" between movies using **Cosine Similarity**. 
+1.  **Vectorization:** Text data (tags) is converted into numerical vectors using `CountVectorizer` (Bag of Words).
+2.  **Similarity Calculation:** We calculate the "distance" between movies using **Cosine Similarity**. The closer the vectors, the more similar the movies.
 3.  **The Formula:** $$similarity = \cos(\theta) = \frac{\mathbf{A} \cdot \mathbf{B}}{\|\mathbf{A}\| \|\mathbf{B}\|}$$
 4.  **Recommendation:** When a movie is selected, the system identifies the top 5 movies with the highest similarity scores.
 
@@ -59,10 +69,17 @@ The system utilizes a dataset of 5,000+ movies to find similarities between titl
 
 ---
 
-## 📂 Project Structure
+## ⚠️ Troubleshooting: Poster Loading Issues
+If posters are not loading, ensure:
+1.  **API Key:** Your TMDB API key is active and correctly pasted in the `fetch_poster` function.
+2.  **Internet Connection:** High-latency connections may cause timeouts.
+3.  **ID Mapping:** Ensure `movies.pkl` contains the correct `movie_id` column as used by TMDB.
 
-```text
-├── movies.pkl             # Pickled DataFrame containing movie titles and IDs
-├── similarity.pkl         # Pre-computed similarity matrix
-├── app.py                 # Main Streamlit application code
-└── requirements.txt       # List of required Python libraries
+---
+
+## 📜 License
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## 🙏 Acknowledgements
+* Dataset provided by [TMDb](https://www.themoviedb.org/).
+* Inspired by the data science community on Kaggle.
