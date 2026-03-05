@@ -2,19 +2,19 @@ import pickle
 import streamlit as st
 import requests
 
-# 1. Use a Session for better performance with multiple requests
+
 session = requests.Session()
 
 
 @st.cache_data(show_spinner=False)
 def fetch_poster(movie_id):
-    # REPLACE 'your_api_key_here' with your actual TMDB API Key
+
     api_key = "your_api_key_here"
     url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=591540d1c435d2bc5fc19e8d3551ea45&language=en-US"
 
     try:
         response = session.get(url, timeout=5)
-        response.raise_for_status()  # Check for HTTP errors
+        response.raise_for_status()  
         data = response.json()
         poster_path = data.get("poster_path")
 
@@ -23,7 +23,6 @@ def fetch_poster(movie_id):
         return "https://via.placeholder.com/500x750?text=No+Poster"
 
     except Exception as e:
-        # Returns a placeholder if the API is down or the ID is wrong
         return "https://via.placeholder.com/500x750?text=Error"
 
 
@@ -34,7 +33,6 @@ def recommend(movie):
     recommended_movie_names = []
     recommended_movie_posters = []
 
-    # Using a progress bar improves user experience
     for i in distances[1:6]:
         movie_id = movies.iloc[i[0]].movie_id
         recommended_movie_names.append(movies.iloc[i[0]].title)
@@ -43,7 +41,7 @@ def recommend(movie):
     return recommended_movie_names, recommended_movie_posters
 
 
-# --- UI Setup ---
+
 st.set_page_config(page_title="Movie Recommender", layout="wide")
 st.header('Movie Recommender System')
 
